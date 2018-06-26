@@ -45,10 +45,29 @@
 
 .list-column {
     float: left;
+    display: table-cell;
     width: 25%;
+    height: 100%;
+}
+
+.button-column {
+    float: left;
+    width: 25%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .list {
     width: 400px;
     height: 500px;
+}
+
+.list-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list-column ul li button {
+    width: 150px;
 }
