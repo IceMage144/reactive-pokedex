@@ -18,7 +18,7 @@ function getJSON(url, sync=true, fn=((response) => {})) {
     })).responseJSON;
 }
 
-function firstUpper(string) {
+function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -29,13 +29,12 @@ class Pokedex extends React.Component {
         this.state = {
             offset: 0,
             pkmList: result.results,
-            pkmShow: (<div></div>),
+            pkmShow: (<div className="screen"></div>),
             nextDisabled: false,
             prevDisabled: true
         };
         this.pkmMax = result.count;
         this.cache = { 0: result.results };
-        console.log(result.results);
         getJSON(`https://pokeapi.co/api/v2/pokemon/?limit=${3*PKM_PER_PAGE}&offset=${PKM_PER_PAGE}`,
                              false, (response) => {
             let pokemons = response.responseJSON.results;
@@ -45,22 +44,24 @@ class Pokedex extends React.Component {
     }
     renderPokemon(pkmNum) {
         if (pkmNum !== 0) {
-            console.log(pkmNum);
             getJSON(this.state.pkmList[pkmNum].url, false, (response) => {
                 let json = response.responseJSON;
-                console.log(json);
                 let types = [];
                 for (let i = 0; i < json.types.length; i++)
                     types.push(<p key={i}>{json.types[i].type.name}</p>);
                 this.setState({
                     pkmShow: (
-                        <div>
-                            <h1>{`#${json.id} ${firstUpper(json.name)}`}</h1>
-                            {types}
-                            <img src={json.sprites.front_default} alt={json.name}/>
-                            <p>Height: {json.height}</p>
-                            <p>Weight: {json.weight}</p>
-                            <div>
+                        <div className="screen">
+                            <h1>{`#${json.id} ${capitalize(json.name)}`}</h1>
+                            <div className="column">
+                                <div className="image-back">
+                                    <img src={json.sprites.front_default} alt={json.name}/>
+                                </div>
+                                {types}
+                            </div>
+                            <div className="column">
+                                <p>Weight: {json.weight}</p>
+                                <p>Height: {json.height}</p>
                                 <p>Speed: {json.stats[0].base_stat}</p>
                                 <p>Special-defense: {json.stats[1].base_stat}</p>
                                 <p>Special-attack: {json.stats[2].base_stat}</p>
@@ -72,7 +73,10 @@ class Pokedex extends React.Component {
                 });
             });
             this.setState({
-                pkmShow: (<div><p>{"Loading..."}</p></div>)
+                pkmShow: (
+                    <div className="screen">
+                        <p>{"Loading..."}</p>
+                    </div>)
             });
         }
         else {
@@ -109,7 +113,7 @@ class Pokedex extends React.Component {
         return (
             <li key={i}>
                 <button onClick={() => this.renderPokemon(i)}>
-                    {firstUpper(this.state.pkmList[i].name)}
+                    {capitalize(this.state.pkmList[i].name)}
                 </button>
             </li>
         );
@@ -120,12 +124,25 @@ class Pokedex extends React.Component {
             list.push(this.renderButton(i));
         return (
             <div>
-                <ul>
-                    {list}
-                </ul>
-                <button onClick={() => this.changeList(1)} disabled={this.state.nextDisabled}>Next</button>
-                <button onClick={() => this.changeList(-1)} disabled={this.state.prevDisabled}>Prev</button>
-                <div>{this.state.pkmShow}</div>
+                <div className="list-row">
+                    <div className="list-column">
+                        <button onClick={() => this.changeList(-1)} disabled={this.state.prevDisabled}>Prev</button>
+                    </div>
+                    <div className="list-column">
+                        <ul>
+                            {list.slice(0, PKM_PER_PAGE/2)}
+                        </ul>
+                    </div>
+                    <div className="list-column">
+                        <ul>
+                            {list.slice(PKM_PER_PAGE/2, PKM_PER_PAGE)}
+                        </ul>
+                    </div>
+                    <div className="list-column">
+                        <button onClick={() => this.changeList(1)} disabled={this.state.nextDisabled}>Next</button>
+                    </div>
+                </div>
+                <div className="pokemon">{this.state.pkmShow}</div>
             </div>);
     }
 }

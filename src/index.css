@@ -1,0 +1,54 @@
+.pokemon {
+    background-color: #c94c4c;
+    margin: 20px 50px 20px 50px;
+    padding: 20px 20px 20px 20px;
+    width: 540px;
+    height: 530px;
+    float: left;
+}
+
+.screen {
+    background-color: #b1cbbb;
+    margin: 20px 20px 20px 20px;
+    padding: 50px 50px 30px 50px;
+    width: 400px;
+    height: 400px;
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.image-back {
+    background-color: #FFFFFF;
+    width: 120px;
+    height: 120px;
+    padding: 20px 10px 0px 10px;
+}
+
+.column {
+    width: 400px;
+    height: 300px;
+    float: left;
+    width: 50%;
+}
+
+.list-row {
+    background-color: #CCCCCC;
+    content: "";
+    display: table;
+    clear: both;
+    width: 600px;
+    float: left;
+    padding: 50px 0px 50px 0px;
+    margin: 20px 50px 20px 50px
+}
+
+.list-column {
+    float: left;
+    width: 25%;
+}
+
+.list {
+    width: 400px;
+    height: 500px;
+}
