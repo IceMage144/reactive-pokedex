@@ -16,6 +16,7 @@
     content: "";
     display: table;
     clear: both;
+    text-align: center;
 }
 
 .image-back {
@@ -23,6 +24,8 @@
     width: 120px;
     height: 120px;
     padding: 20px 10px 0px 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .column {
@@ -37,10 +40,10 @@
     content: "";
     display: table;
     clear: both;
-    width: 600px;
+    width: 580px;
     float: left;
-    padding: 50px 0px 50px 0px;
-    margin: 20px 50px 20px 50px
+    padding: 30px 0px 30px 0px;
+    margin: 20px 50px 20px 50px;
 }
 
 .list-column {
@@ -56,6 +59,14 @@
     height: 100%;
     display: table-cell;
     vertical-align: middle;
+}
+
+.button-column button {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: auto;
+    display: block;
 }
 
 .list {
