@@ -90,6 +90,7 @@ class Pokedex extends React.Component {
                 )
             });
         });
+
         // Add a pleceholder to indicate that no response has come yet
         this.setState({
             pkmShow: (
@@ -108,10 +109,10 @@ class Pokedex extends React.Component {
         let nextOffset = this.state.offset + add*PKM_PER_PAGE;
         if (nextOffset >= this.pkmMax || nextOffset < 0)
             return;
-        let list = [];
+
         // Checks if the page is at the cache, and fails to load, otherwise
         if (nextOffset in this.cache) {
-            list = this.cache[nextOffset];
+            let list = this.cache[nextOffset];
             this.setState({
                 pkmList: list,
                 offset: nextOffset,
@@ -119,6 +120,7 @@ class Pokedex extends React.Component {
                 prevDisabled: (nextOffset - PKM_PER_PAGE < 0)
             });
         }
+
         // Load more pages to cache
         let futureOffset = nextOffset + 3*PKM_PER_PAGE;
         if (futureOffset < this.pkmMax && !(futureOffset in this.cache)) {
@@ -149,7 +151,7 @@ class Pokedex extends React.Component {
      * Default render method from React that renders everything
      */
     render() {
-        let list = []
+        let list = [];
         for (let i = 0; i < PKM_PER_PAGE; i++)
             list.push(this.renderButton(i));
         return (
@@ -173,7 +175,8 @@ class Pokedex extends React.Component {
                     </div>
                 </div>
                 <div className="pokemon">{this.state.pkmShow}</div>
-            </div>);
+            </div>
+        );
     }
 }
 
